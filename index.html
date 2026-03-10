@@ -13,28 +13,69 @@
             --pink-light: #ffccd5;
         }
 
-        body { margin: 0; background-color: var(--pink-bg); font-family: 'Quicksand', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; touch-action: manipulation; }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--pink-bg);
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            touch-action: manipulation;
+        }
 
-        /* --- OVERLAY PEMBUKA (Wajib untuk Autoplay) --- */
-        #overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--pink-bg); display:flex; justify-content:center; align-items:center; z-index: 1000; cursor: pointer; }
-        .start-btn { background: var(--pink-dark); color: white; padding: 20px 40px; border-radius: 50px; font-size: 20px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3); }
-
-        /* --- WATERFALL --- */
-        .falling-word { position: absolute; top: -100px; font-weight: 900; color: var(--pink-primary); user-select: none; pointer-events: none; animation: fall linear forwards; z-index: 0; }
+        /* --- EFEK WATERFALL --- */
+        .falling-word {
+            position: absolute;
+            top: -100px; 
+            font-weight: 900;
+            color: var(--pink-primary);
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 0;
+        }
         @keyframes fall { to { transform: translateY(110vh); } }
 
-        /* --- STYLING TEKS & KARTU --- */
-        .page { display: none; flex-direction: column; align-items: center; width: 100%; height: 100%; justify-content: center; animation: fadeIn 0.8s ease; z-index: 100; cursor: pointer; }
-        .active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .card { background: white; padding: 30px; border-radius: 25px; width: 85%; max-width: 320px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 4px solid var(--pink-light); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        /* --- STYLING TEKS --- */
         .card h2 { font-family: 'Dancing Script', cursive; color: var(--pink-dark); font-size: 32px; margin-bottom: 15px; }
-        .card p { font-weight: 600; color: #555; line-height: 1.6; font-size: 15px; }
+        .card p { font-family: 'Quicksand', sans-serif; font-weight: 600; color: #555; line-height: 1.6; font-size: 15px; }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            animation: fadeIn 0.8s ease;
+            z-index: 100; /* Agar teks di atas waterfall */
+        }
+        .active { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            width: 85%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 4px solid var(--pink-light);
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
         .cinamoroll-gif { width: 140px; margin-bottom: 15px; border-radius: 15px; border: 2px solid var(--pink-light); }
         .star { position: absolute; color: gold; font-size: 20px; }
         
-        /* --- AMPLOP --- */
+        /* --- STYLING AMPLOP --- */
         .envelope-wrapper { position: relative; width: 280px; height: 180px; background-color: var(--pink-light); cursor: pointer; box-shadow: 0 10px 30px rgba(255, 133, 161, 0.3); border-radius: 15px; border: 4px solid #ffffff; z-index: 10; }
         .letter { position: absolute; top: 5%; left: 5%; width: 90%; height: 90%; background: #ffffff; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2; padding: 20px; box-sizing: border-box; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transform: translateY(0) scale(0.5); border: 3px dashed var(--pink-primary); background-image: radial-gradient(var(--pink-light) 1px, transparent 1px); background-size: 20px 20px; }
         .envelope-wrapper:hover .letter, .envelope-wrapper:active .letter { opacity: 1; transform: translateY(-180px) scale(1.4); z-index: 20; }
@@ -43,18 +84,12 @@
         .envelope-wrapper:hover .flap, .envelope-wrapper:active .flap { transform: rotateX(180deg); z-index: 1; }
         .envelope-front { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--pink-light); clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%); z-index: 4; border-radius: 0 0 15px 15px; }
         .heart { position: absolute; top: 50%; left: 50%; width: 35px; height: 35px; background-color: var(--pink-dark); transform: translate(-50%, -20%) rotate(45deg); z-index: 6; animation: heartbeat 1.2s infinite; }
+        .heart::before, .heart::after { content: ""; position: absolute; width: 35px; height: 35px; background-color: var(--pink-dark); border-radius: 50%; }
+        .heart::before { left: -18px; } .heart::after { top: -18px; }
         @keyframes heartbeat { 0%, 100% { transform: translate(-50%, -20%) rotate(45deg) scale(1); } 50% { transform: translate(-50%, -20%) rotate(45deg) scale(1.1); } }
     </style>
 </head>
 <body>
-
-    <audio id="mySong" loop>
-        <source src="ssstik.io_1773103777481.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="overlay" onclick="start()">
-        <button class="start-btn">Klik untuk Membuka Surat 💌</button>
-    </div>
 
     <div id="page1" class="page active">
         <div class="envelope-wrapper">
@@ -62,7 +97,9 @@
             <div class="letter">
                 <div style="text-align: center;">
                     <h1 style="font-family: 'Dancing Script'; color: #ff4d6d; margin:0; font-size: 24px;">Happy Birthday 🎂</h1>
-                    <p style="font-size: 13px; color: #555; margin-top: 10px;">Sentuh amplop untuk membuka!</p>
+                    <p style="font-size: 13px; color: #555; margin-top: 10px;">
+                        wkwkw nambah satu tahun lagi nih, semoga panjang umur dan diberikan kesehatan yaa ✨
+                    </p>
                 </div>
                 <div class="arrow-btn" onclick="nextPage(2)">❯</div>
             </div>
@@ -91,19 +128,14 @@
     </div>
 
     <script>
-        function start() {
-            document.getElementById("mySong").play();
-            document.getElementById("overlay").style.display = "none";
-        }
-
         function nextPage(pageNumber) {
             event.stopPropagation();
             document.querySelectorAll('.page').forEach(page => { page.classList.remove('active'); });
             document.getElementById('page' + pageNumber).classList.add('active');
         }
-
-        // Waterfall
-        const words = ["HBD 🎂", "mermaid", "💞", "💖", "🌸", "✨", "Zahraa", "🤍"];
+🧜‍♀️
+        // --- SKRIP WATERFALL ---
+        const words = ["HBD 🎂", "mermaid 🧜‍♀️", "💞", "💖", "🌸", "✨", "Zahraa", "🤍"];
         function createWord() {
             const wordElement = document.createElement('div');
             wordElement.classList.add('falling-word');
